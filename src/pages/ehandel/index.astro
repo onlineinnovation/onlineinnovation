@@ -1,0 +1,90 @@
+---
+import AreaPage from '../../layouts/AreaPage.astro';
+import Receipt from '../../components/Receipt.astro';
+import Calculator from '../../components/Calculator.astro';
+---
+<AreaPage
+  area="ehandel"
+  title="E-handel: från inköp till publicerad produkt"
+  description="En automationsmotor för Shopify-butiker: leverantörens produktfil blir färdiga produktsidor med text, SEO, översättningar och bilder. Ni granskar och publicerar."
+  eyebrow="För e-handlare på Shopify"
+  headline="Från inköp till publicerad produkt samma dag."
+  lede="Leverantörens produktfil blir färdiga produktsidor i Shopify, med text, SEO, översättningar och bilder. Ni granskar, vi har gjort resten."
+  leaksTitle="Här fastnar nya produkter"
+  leaks={[
+    { problem: 'Varorna väntar på sina sidor', text: 'Leveransen har kommit, men produktsidorna är inte klara. Lagret står still medan någon skriver texter och beskär bilder.', fix: 'Leverantörsfilen blir färdiga utkast i Shopify samma dag.' },
+    { problem: 'Kvaliteten varierar', text: 'Texter, titlar och SEO beror på vem som hade tid den veckan. Vissa produkter hittas, andra inte.', fix: 'Varje produktsida följer samma mall för tonläge, SEO och struktur.' },
+    { problem: 'Varje ny marknad är ett projekt', text: 'Översättningar till fler språk tar veckor och blir ofta aldrig av för hela sortimentet.', fix: 'Fler språk är en inställning, inte ett projekt.' },
+  ]}
+  stepsTitle="Från leverantörsfil till såld produkt"
+  steps={[
+    { name: 'Importera', text: 'Leverantörens fil läses in automatiskt, oavsett om den kommer som Excel, CSV, PDF-katalog eller via API. Varianter, priser och attribut plockas ut.' },
+    { name: 'Berika', text: 'AI skriver produkttext i butikens tonläge, SEO-titel och metabeskrivning, väljer kategori, taggar och filter, och beskär och komprimerar bilderna.' },
+    { name: 'Översätt', text: 'Samma produkt på fler språk för butikens marknader, med samma tonläge och SEO på varje språk.' },
+    { name: 'Granska', text: 'Produkterna läggs som utkast i Shopify. Ni godkänner med ett klick, eller rättar först. Inget publiceras utan ert ja.' },
+    { name: 'Publicera och annonsera', text: 'Produkten går live och skickas vidare till Google Shopping och Meta-katalogen, så att den kan annonseras direkt.' },
+  ]}
+  includes={[
+    'Inläsning av leverantörsfiler i de format ni får dem',
+    'Produkttexter i butikens tonläge, enligt en mall vi tar fram ihop med er',
+    'SEO-titlar, metabeskrivningar, kategorier, taggar och filter',
+    'Beskärning och komprimering av produktbilder',
+    'Översättning till butikens marknader',
+    'Utkast i Shopify för er granskning',
+    'Flöden till Google Shopping och Meta-katalogen',
+  ]}
+  values={[
+    { title: 'Lansera fler produkter med samma team', text: 'Kapaciteten följer inköpen, inte personalstyrkan.' },
+    { title: 'Samma kvalitet på varje produktsida', text: 'Tonläge, SEO och struktur följer en mall, varje gång.' },
+    { title: 'Nya marknader utan översättningsbyrå', text: 'Fler språk är en inställning, inte ett projekt.' },
+    { title: 'Ni har sista ordet', text: 'Allt landar som utkast. Ni bestämmer vad som publiceras.' },
+  ]}
+  pkg={[
+    { label: 'Ingång', value: 'Pilot med 50 produkter', note: 'Publicerade i er butik inom 14 dagar, till fast pris.' },
+    { label: 'Uppsättning', value: 'Fast pris', note: 'Mall, kopplingar och flöden för hela sortimentet.' },
+    { label: 'Löpande', value: 'Per produkt eller månadsavgift', note: 'Det som blir billigast för er volym.' },
+  ]}
+  guarantee="Piloten levererar 50 färdiga produkter i er Shopify-butik inom 14 dagar. Annars betalar ni inget för den."
+  faq={[
+    { q: 'Vilka filer kan ni läsa in?', a: 'Det vanligaste är Excel och CSV från leverantören, men vi läser även PDF-kataloger och leverantörers API:er. Skicka gärna ett exempel inför genomgången.' },
+    { q: 'Blir texterna generiska?', a: 'Nej. Vi tar fram en mall ihop med er, med tonläge, ordval och struktur från era bästa produktsidor. Den styr varje text.' },
+    { q: 'Vem äger texterna och flödena?', a: 'Ni. Allt ligger i er Shopify-butik och era konton, och flödena dokumenteras.' },
+    { q: 'Fungerar det med våra appar i Shopify?', a: 'Produkterna skapas på vanligt sätt i Shopify, så appar för filter, recensioner och översättning fungerar som förut. Det går vi igenom vid genomgången.' },
+  ]}
+  cta={{ title: 'Boka en genomgång av ert produktflöde', text: 'Trettio minuter. Visa hur en leverans blir till produktsidor idag, så visar vi vad som går att automatisera och hur en pilot med 50 produkter skulle se ut.' }}
+>
+  <Receipt
+    slot="receipt"
+    heading="VECKANS LANSERING"
+    period="v. 43"
+    subtitle="Shopify-butik, exempel"
+    rows={[
+      { label: 'Importerade', mid: '', value: '120 st' },
+      { label: 'Text och SEO', mid: '', value: '118 st' },
+      { label: 'Översatta', mid: '3 språk', value: '354 sidor' },
+      { label: 'Bilder', mid: '', value: '412 st' },
+    ]}
+    summary={[
+      { label: 'Tid per produkt, före', value: '35 min' },
+      { label: 'Tid per produkt, nu', value: '4 min' },
+    ]}
+    total={{ label: 'PUBLICERADE', value: '112 produkter' }}
+    note="6 produkter väntar på er granskning"
+    caption="Veckans leverans, från fil till butik."
+  />
+
+  <Calculator
+    slot="calculator"
+    kind="ehandel"
+    title="Hur mycket tid går till produktsidor idag?"
+    intro="Fyll i hur många nya produkter ni lägger upp och hur lång tid en produkt tar idag, så ser ni vad som frigörs när flödet sköter grovjobbet."
+    fields={[
+      { id: 'produkter', label: 'Nya produkter per månad', value: 100, suffix: 'st' },
+      { id: 'minuter', label: 'Minuter per produkt idag', value: 30, suffix: 'min' },
+      { id: 'andel', label: 'Andel som automatiseras', value: 80, suffix: '%', max: 100 },
+      { id: 'timkostnad', label: 'Timkostnad', value: 400, suffix: 'kr', step: 50 },
+    ]}
+    resultLabel="Tid som frigörs"
+    footnote="En uppskattning utifrån era egna siffror, inget löfte. Granskningen tar fortfarande lite tid per produkt, därför är andelen satt under 100 %."
+  />
+</AreaPage>

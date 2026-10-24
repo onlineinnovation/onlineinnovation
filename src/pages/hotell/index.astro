@@ -1,0 +1,116 @@
+---
+import AreaPage from '../../layouts/AreaPage.astro';
+import Receipt from '../../components/Receipt.astro';
+import Calculator from '../../components/Calculator.astro';
+
+const conferenceTypes = [
+  { name: 'Dagkonferens', text: 'Möteslokal, teknik och lunch för en dag. Bokas ofta med kort varsel av en assistent eller HR.' },
+  { name: 'Konferens med övernattning', text: 'Ett eller flera dygn med rum, middag och aktivitet. Högst ordervärde och längst beslutstid.' },
+  { name: 'Ledningsgrupp och styrelse', text: 'Små grupper som vill ha avskildhet och hög service. Återkommer gärna varje år.' },
+  { name: 'Företagsfest och kick-off', text: 'Större grupper där aktiviteten och maten säljer platsen. Toppar inför vår, höst och jul.' },
+];
+---
+<AreaPage
+  area="hotell"
+  title="Hotell: fler konferens- och företagsbokningar"
+  description="En automatiserad försäljningsmotor för fristående hotell och herrgårdar: annonser som når företag, förfrågningar som besvaras direkt och uppföljning tills offerten är bokad."
+  eyebrow="För fristående hotell och herrgårdar"
+  headline="Fler konferenser och företagsbokningar. Varje förfrågan besvarad samma timme."
+  lede="En försäljningsmotor som når företag när de planerar, svarar direkt med prisindikation och följer upp offerten tills den är bokad. Allt hamnar i ert CRM, utan manuell hantering."
+  leaksTitle="Här går konferensbokningar förlorade"
+  leaks={[
+    { problem: 'Svaret dröjer', text: 'Beställaren frågar ofta flera hotell samtidigt. Det hotell som svarar först med ett pris har ett försprång.', fix: 'Bekräftelse och prisindikation går ut direkt, och säljaren får ett färdigt underlag.' },
+    { problem: 'Offerten glöms bort', text: 'Offerten är skickad, kunden svarar inte, och i högsäsong hinner ingen ringa upp. Förfrågan rinner ut i sanden.', fix: 'Uppföljningen går av sig själv tills kunden har svarat ja eller nej.' },
+    { problem: 'Annonserna mäts i klick', text: 'Annonsbudgeten syns på fakturan, men ingen kan säga hur många konferenser den gav.', fix: 'Varje bokning spåras tillbaka till annonsen och konferenstypen den kom från.' },
+  ]}
+  stepsTitle="Från sökning till bokad konferens"
+  steps={[
+    { name: 'Synas', text: 'Google Ads och landningssidor för varje typ av konferens. Den som söker dagkonferens möter en annan sida än den som planerar ledningsgruppens internat. Budgeten flyttas mot det som ger bokningar.' },
+    { name: 'Fånga', text: 'Ett förfrågningsformulär som anpassar sig efter konferenstypen och samlar in datum, antal deltagare, rum, mat, teknik och budget direkt. Säljaren slipper mejla fram och tillbaka.' },
+    { name: 'Svara', text: 'Beställaren får bekräftelse med prisindikation och nästa steg samma timme. Förfrågan läggs i ert CRM som ett ifyllt offertunderlag.' },
+    { name: 'Följa upp', text: 'Obesvarade offerter följs upp automatiskt. Företag som konferenserat tidigare får en inbjudan inför nästa säsong, innan de hunnit leta någon annanstans.' },
+    { name: 'Mäta', text: 'En veckorapport visar förfrågningar, offererat och bokat värde per konferenstyp och annons. Ni ser vad varje annonskrona gav i konferensintäkt.' },
+  ]}
+  includes={[
+    'Google Ads-kampanjer per konferenstyp och säsong',
+    'Landningssidor och förfrågningsformulär som anpassar sig efter typen av konferens',
+    'Automatiskt svar med prisindikation, dygnet runt',
+    'Koppling till ert CRM, eller ett CRM som vi sätter upp åt er',
+    'Automatisk uppföljning av offerter och tidigare konferenskunder',
+    'Veckorapport med bokat värde per annons och konferenstyp',
+  ]}
+  values={[
+    { title: 'Snabbast svar vinner', text: 'Bekräftelse och prisindikation direkt, även en lördagskväll.' },
+    { title: 'Ingen förfrågan faller mellan stolarna', text: 'Uppföljningen sker av sig själv tills kunden har svarat.' },
+    { title: 'Ni vet vad marknadsföringen ger', text: 'Bokat värde per annons och konferenstyp, varje vecka.' },
+    { title: 'Ni äger allt', text: 'Annonskonton, CRM och allt vi bygger tillhör er.' },
+  ]}
+  pkg={[
+    { label: 'Ingång', value: 'Kostnadsfri genomgång', note: 'Vi går igenom hur konferenserna säljs idag.' },
+    { label: 'Uppsättning', value: 'Fast pris', note: 'Lämnas efter genomgången.' },
+    { label: 'Löpande', value: 'Månadsavgift', note: 'Drift, annonshantering och rapport. Annonsbudgeten betalas direkt till Google.' },
+    { label: 'Resultatdel', value: 'Valfri bonus per bokad konferens', note: 'För den som vill dela risken.' },
+  ]}
+  guarantee="Får ni inte fler konferensförfrågningar inom 90 dagar än under samma period innan, arbetar vi utan månadsavgift tills ni gör det."
+  faq={[
+    { q: 'Fungerar det med vårt bokningssystem?', a: 'Motorn bygger på det ni redan har. Förfrågningar och offertunderlag hamnar i ert CRM eller er inkorg, och i bokningssystemet om det har en öppen koppling. Det går vi igenom vid genomgången.' },
+    { q: 'Vem skickar offerten?', a: 'Er säljare, som vanligt. Motorn skickar det första svaret och tar fram underlaget, men offerten och priset är ert.' },
+    { q: 'Hur snabbt syns resultat?', a: 'Annonserna ger förfrågningar redan de första veckorna. Hur många som blir bokningar beror på säsong och hur snabbt offerterna går ut, och det är just det veckorapporten visar.' },
+    { q: 'Hur hanteras gästdata?', a: 'Vi flyttar bara de uppgifter som behövs, till system som har personuppgiftsbiträdesavtal, och dokumenterar varje flöde.' },
+  ]}
+  cta={{ title: 'Boka en genomgång av er konferensförsäljning', text: 'Trettio minuter. Vi går igenom var förfrågningarna kommer ifrån, hur snabbt de besvaras och vad som händer med offerterna. Ni får en skiss på vad som går att förbättra, oavsett om vi jobbar ihop sedan eller inte.' }}
+>
+  <Receipt
+    slot="receipt"
+    heading="KONFERENSFÖRFRÅGNINGAR"
+    period="v. 43"
+    subtitle="Hotell, exempel"
+    rows={[
+      { label: 'Dagkonferens', mid: '9 förfr.', value: '118 800 kr' },
+      { label: 'Övernattning', mid: '6 förfr.', value: '412 000 kr' },
+      { label: 'Ledningsgrupp', mid: '3 förfr.', value: '96 500 kr' },
+      { label: 'Kick-off', mid: '4 förfr.', value: '175 600 kr' },
+    ]}
+    summary={[
+      { label: 'Offererat värde', value: '802 900 kr' },
+      { label: 'Svarstid, snitt', value: '11 min' },
+    ]}
+    total={{ label: 'BOKAT', value: '7 konferenser · 274 000 kr' }}
+    note="4 obesvarade offerter följs upp i morgon kl 09:00"
+    caption="Veckans konferenser, från annons till bokning."
+  />
+
+  <section slot="extra" class="border-t border-line py-20 md:py-28">
+    <div class="wrap grid gap-12 lg:grid-cols-[1fr_1.6fr]">
+      <div>
+        <h2>En konferens är inte en konferens</h2>
+        <p class="mt-5 text-ink-soft measure">
+          En assistent som letar dagkonferens till på torsdag söker annorlunda än en vd som planerar
+          ledningsgruppens internat. Därför får varje typ egna annonser, egna sidor och egna frågor i förfrågan.
+        </p>
+      </div>
+      <dl class="grid gap-x-10 gap-y-8 sm:grid-cols-2">
+        {conferenceTypes.map((t) => (
+          <div class="border-t-4 area-border pt-4">
+            <dt class="font-display text-xl font-semibold">{t.name}</dt>
+            <dd class="mt-2 text-ink-soft">{t.text}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <Calculator
+    slot="calculator"
+    kind="hotell"
+    title="Vad är snabbare svar värt för er?"
+    intro="Fyll i ungefär hur många konferensförfrågningar ni får och vad en konferens är värd. Justera sedan hur många fler som blir bokningar när svaret kommer direkt och uppföljningen sker av sig själv."
+    fields={[
+      { id: 'forfragningar', label: 'Förfrågningar per månad', value: 15, suffix: 'st' },
+      { id: 'snittvarde', label: 'Snittvärde per konferens', value: 40000, suffix: 'kr', step: 1000 },
+      { id: 'okning', label: 'Fler som bokas, procentenheter', value: 5, suffix: '%', max: 100 },
+    ]}
+    resultLabel="Möjlig extra konferensintäkt per år"
+    footnote="En uppskattning utifrån era egna siffror, inget löfte. Den visar storleksordningen på vad varje procentenhet bättre konvertering är värd."
+  />
+</AreaPage>

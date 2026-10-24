@@ -1,18 +1,27 @@
 @import "tailwindcss";
 
 /* Online Innovation – designsystem
-   Gul (#fdd444) är behållen från tidigare varumärke.
-   Skog är basfärgen för mörka partier, papper för ljusa. */
+   Ljus grund. Gul (#fdd444) är varumärkesfärgen från tidigare sajt och används
+   till knappar och markeringar. Varje affärsområde har en egen färg som sätts
+   med data-area="hotell|ehandel|automation" och läses via --area / --area-soft. */
 @theme {
-  --color-ink: #1c1f24;
-  --color-ink-soft: #4a5058;
+  --color-ink: #23262b;
+  --color-ink-soft: #565c64;
   --color-paper: #ffffff;
-  --color-mist: #eef1ed;
-  --color-line: #d7dcd5;
-  --color-forest: #1f3b33;
-  --color-forest-deep: #162b25;
+  --color-mist: #f3f4f2;
+  --color-line: #dfe2de;
+  --color-graphite: #2b2e33;
   --color-sun: #fdd444;
-  --color-sun-soft: #fff4c4;
+  --color-sun-deep: #f0bf1a;
+  --color-sun-soft: #fff6cf;
+
+  --color-hav: #1f5f8b;
+  --color-hav-soft: #e9f2f8;
+  --color-korall: #d4473a;
+  --color-korall-soft: #fcece9;
+  --color-violett: #5a4fc7;
+  --color-violett-soft: #efedfb;
+
   --color-gain: #2e7d5b;
   --color-loss: #b8432c;
 
@@ -22,6 +31,11 @@
 }
 
 @layer base {
+  :root { --area: var(--color-ink); --area-soft: var(--color-mist); }
+  [data-area="hotell"] { --area: var(--color-hav); --area-soft: var(--color-hav-soft); }
+  [data-area="ehandel"] { --area: var(--color-korall); --area-soft: var(--color-korall-soft); }
+  [data-area="automation"] { --area: var(--color-violett); --area-soft: var(--color-violett-soft); }
+
   html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
   body {
     @apply bg-paper text-ink font-sans antialiased;
@@ -33,7 +47,7 @@
   h2 { font-size: clamp(1.8rem, 3.6vw, 2.75rem); line-height: 1.08; font-weight: 650; }
   h3 { font-size: 1.35rem; line-height: 1.2; font-weight: 600; }
   p { @apply text-pretty; }
-  :focus-visible { outline: 3px solid var(--color-sun); outline-offset: 3px; border-radius: 2px; }
+  :focus-visible { outline: 3px solid var(--color-sun-deep); outline-offset: 3px; border-radius: 2px; }
   ::selection { background: var(--color-sun); color: var(--color-ink); }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -49,13 +63,21 @@
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold transition-colors;
   }
-  .btn-sun { @apply bg-sun text-ink hover:bg-[#f3c21f]; }
+  .btn-sun { @apply bg-sun text-ink hover:bg-sun-deep; }
   .btn-ghost { @apply border border-current hover:bg-ink/5; }
   .on-dark .btn-ghost { @apply hover:bg-white/10; }
+
+  /* Områdesfärg */
+  .area-text { color: var(--area); }
+  .area-bg { background-color: var(--area); }
+  .area-soft { background-color: var(--area-soft); }
+  .area-border { border-color: var(--area); }
+
+  .field { @apply rounded-lg border border-line bg-white px-4 py-3 focus:border-ink; }
 
   .prose-oi p { @apply mb-5; }
   .prose-oi h2 { @apply mt-12 mb-4; font-size: 1.75rem; }
   .prose-oi h3 { @apply mt-8 mb-3; }
   .prose-oi ul { @apply mb-6 list-disc pl-6 space-y-2; }
-  .prose-oi a { @apply underline decoration-sun decoration-2 underline-offset-4; }
+  .prose-oi a { @apply underline decoration-sun-deep decoration-2 underline-offset-4; }
 }

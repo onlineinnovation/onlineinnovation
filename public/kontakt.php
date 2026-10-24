@@ -31,7 +31,7 @@ $data = [
     'foretag'    => $clean('foretag'),
     'epost'      => $clean('epost'),
     'telefon'    => $clean('telefon', 40),
-    'amne'       => $clean('amne', 80),
+    'omrade'     => $clean('omrade', 20),
     'meddelande' => $clean('meddelande', 5000),
     'tid'        => date('c'),
 ];
@@ -45,12 +45,15 @@ foreach (['namn', 'epost'] as $k) {
     $data[$k] = str_replace(["\r", "\n"], ' ', $data[$k]);
 }
 
+$omraden = ['hotell' => 'Hotell', 'ehandel' => 'E-handel', 'automation' => 'Automation', 'annat' => 'Något annat'];
+$omradeNamn = $omraden[$data['omrade']] ?? 'Något annat';
+
 $body = "Ny förfrågan från onlineinnovation.se\n\n"
       . "Namn: {$data['namn']}\n"
-      . "Hotell: {$data['foretag']}\n"
+      . "Företag: {$data['foretag']}\n"
       . "E-post: {$data['epost']}\n"
       . "Telefon: {$data['telefon']}\n"
-      . "Konferenser per år: {$data['amne']}\n\n"
+      . "Område: {$omradeNamn}\n\n"
       . $data['meddelande'] . "\n";
 
 $headers = [
@@ -59,7 +62,7 @@ $headers = [
     'Content-Type: text/plain; charset=UTF-8',
 ];
 
-$subject = '=?UTF-8?B?' . base64_encode('Genomgång: ' . $data['namn'] . ($data['foretag'] ? ', ' . $data['foretag'] : '')) . '?=';
+$subject = '=?UTF-8?B?' . base64_encode('Genomgång (' . $omradeNamn . '): ' . $data['namn'] . ($data['foretag'] ? ', ' . $data['foretag'] : '')) . '?=';
 $mailOk = @mail(TO_EMAIL, $subject, $body, implode("\r\n", $headers));
 
 // Valfri Make-webhook

@@ -1,8 +1,10 @@
 ---
-interface Props { title?: string; text?: string }
+import { contactHref, type AreaKey } from '../data/site';
+interface Props { title?: string; text?: string; area?: AreaKey }
 const {
-  title = 'Boka en genomgång av er konferensförsäljning',
-  text = 'Trettio minuter. Vi går igenom var era konferensförfrågningar kommer ifrån, hur snabbt de besvaras och vad som händer med offerterna. Ni får en kort skiss på vad som går att förbättra, oavsett om vi jobbar ihop sedan eller inte.',
+  title = 'Boka en genomgång',
+  text = 'Trettio minuter. Ni får en skiss på vad som går att automatisera, oavsett om vi jobbar ihop sedan eller inte.',
+  area,
 } = Astro.props;
 ---
 <section class="bg-sun">
@@ -11,6 +13,6 @@ const {
       <h2>{title}</h2>
       <p class="mt-4 max-w-[58ch] text-lg">{text}</p>
     </div>
-    <a href="/kontakt/" class="btn bg-ink text-white hover:bg-forest">Boka en genomgång</a>
+    <a href={contactHref(area)} class="btn bg-ink text-white hover:bg-graphite">Boka en genomgång</a>
   </div>
 </section>

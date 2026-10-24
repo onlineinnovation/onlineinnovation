@@ -1,0 +1,121 @@
+---
+import AreaPage from '../../layouts/AreaPage.astro';
+import Receipt from '../../components/Receipt.astro';
+import Calculator from '../../components/Calculator.astro';
+
+const examples = [
+  {
+    name: 'Data där ni behöver den',
+    before: 'Siffrorna ligger i fem olika system. Någon sammanställer en rapport för hand, och den är inaktuell när den är klar.',
+    after: 'All data från era olika system samlas i en dashboard som uppdateras av sig själv, när ni behöver den.',
+  },
+  {
+    name: 'Synk mellan affärssystem',
+    before: 'Order, kunder och lager förs in i flera system. Det blir dubbelt arbete och fel som någon måste leta upp.',
+    after: 'Order, kunder och lager hålls lika i webbshop, affärssystem och bokföring, automatiskt.',
+  },
+];
+---
+<AreaPage
+  area="automation"
+  title="Automation: sluta flytta data för hand"
+  description="Vi kopplar ihop de system ni redan har och samlar er data i en dashboard. Ni får tillbaka timmarna, varje månad."
+  eyebrow="För företag i alla branscher"
+  headline="Era medarbetare ska inte flytta data mellan system."
+  lede="Vi kopplar ihop de system ni redan har och samlar er data där ni behöver den. Ni får tillbaka timmarna, varje månad."
+  leaksTitle="Här försvinner timmarna"
+  leaks={[
+    { problem: 'Samma sak skrivs in två gånger', text: 'En order läggs in i webbshopen, sedan i affärssystemet, sedan i bokföringen. Varje steg tar tid och kan bli fel.', fix: 'Systemen pratar med varandra. Uppgiften skrivs in en gång.' },
+    { problem: 'Rapporterna kommer för sent', text: 'Någon sammanställer siffror för hand en gång i månaden. Besluten fattas på data som redan är gammal.', fix: 'En dashboard som hämtar siffrorna själv och alltid är aktuell.' },
+    { problem: 'Ingen vet vad det kostar', text: 'Det manuella arbetet syns inte på någon faktura. Det är bara timmar som försvinner, vecka efter vecka.', fix: 'Genomgången sätter en siffra på det: timmar och kronor per flöde.' },
+  ]}
+  stepsTitle="Från genomgång till sparade timmar"
+  steps={[
+    { name: 'Automationsgenomgång', text: 'Två timmar med er. Vi går igenom era system och rutiner och hittar de fem manuella flöden som kostar mest.' },
+    { name: 'Rapport', text: 'Ni får en rapport med varje flöde, vad det kostar idag i timmar och kronor, och vad en automation skulle spara.' },
+    { name: 'Uppsättning', text: 'Vi bygger de flöden ni väljer, med Make, Zapier eller systemens egna kopplingar, och testar dem med riktig data.' },
+    { name: 'Drift', text: 'Vi övervakar flödena, rättar när en leverantör ändrar något och följer upp de sparade timmarna varje månad.' },
+  ]}
+  includes={[
+    'Automationsgenomgång och rapport med de fem dyraste manuella flödena',
+    'Kopplingar mellan era befintliga system',
+    'Dashboard som samlar data från era olika system',
+    'Test med riktig data innan något går live',
+    'Dokumentation av varje flöde',
+    'Övervakning och larm om ett flöde stannar',
+  ]}
+  values={[
+    { title: 'Byggt på era system', text: 'Inga byten och inga nya inloggningar för personalen.' },
+    { title: 'Mätt i sparade timmar', text: 'Varje flöde har ett mål i timmar per månad, och vi följer upp det.' },
+    { title: 'Ni äger allt', text: 'Konton, flöden och dokumentation tillhör er.' },
+  ]}
+  pkg={[
+    { label: 'Ingång', value: 'Automationsgenomgång', note: 'Fast pris, som räknas av om ni går vidare.' },
+    { label: 'Uppsättning', value: 'Fast pris per flöde', note: 'Ni väljer vilka flöden som byggs.' },
+    { label: 'Löpande', value: 'Drift och övervakning', note: 'Månadsavgift, så att flödena fortsätter fungera.' },
+  ]}
+  guarantee="Hittar genomgången inte minst tio timmar i månaden att spara, betalar ni inget för den."
+  faq={[
+    { q: 'Vilka system kan ni koppla ihop?', a: 'De flesta affärssystem, webbshoppar, bokföringsprogram och CRM har öppna kopplingar. Vi går igenom era system vid genomgången och säger direkt om något inte går.' },
+    { q: 'Vad händer om ett system uppdateras?', a: 'Flödena övervakas. Om en leverantör ändrar något som påverkar en koppling får vi ett larm och rättar det.' },
+    { q: 'Vem äger flödena?', a: 'Ni. Kontona står på er, och varje flöde dokumenteras så att ni inte är bundna till oss.' },
+    { q: 'Hur hanteras personuppgifter?', a: 'Vi flyttar bara de uppgifter som behövs, till tjänster som har personuppgiftsbiträdesavtal, och dokumenterar var data lagras.' },
+  ]}
+  cta={{ title: 'Boka en automationsgenomgång', text: 'Vi hittar era fem dyraste manuella flöden och sätter en siffra på vad de kostar. Hittar vi inte minst tio timmar i månaden att spara betalar ni inget.' }}
+>
+  <Receipt
+    slot="receipt"
+    heading="SPARAD TID"
+    period="oktober"
+    subtitle="Företag, exempel"
+    rows={[
+      { label: 'Fakturor', mid: '214 st', value: '18 h' },
+      { label: 'Ordrar synkade', mid: '1 380 st', value: '23 h' },
+      { label: 'Rapporter', mid: '4 st', value: '12 h' },
+    ]}
+    summary={[
+      { label: 'Flöden i drift', value: '6 st' },
+      { label: 'Stopp, åtgärdade', value: '1 st' },
+    ]}
+    total={{ label: 'SPARAT', value: '53 timmar' }}
+    note="Dashboarden uppdaterades senast 07:00"
+    caption="En månad med flödena i drift."
+  />
+
+  <section slot="extra" class="border-t border-line py-20 md:py-28">
+    <div class="wrap">
+      <h2>Två exempel, före och efter</h2>
+      <div class="mt-12 grid gap-10 md:grid-cols-2">
+        {examples.map((e) => (
+          <article class="border-t-4 area-border pt-5">
+            <h3 class="text-2xl">{e.name}</h3>
+            <dl class="mt-5 space-y-4">
+              <div>
+                <dt class="text-sm font-semibold text-ink-soft">Före</dt>
+                <dd class="mt-1">{e.before}</dd>
+              </div>
+              <div>
+                <dt class="text-sm font-semibold area-text">Efter</dt>
+                <dd class="mt-1 font-medium">{e.after}</dd>
+              </div>
+            </dl>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Calculator
+    slot="calculator"
+    kind="automation"
+    title="Vad kostar det manuella arbetet idag?"
+    intro="Uppskatta hur många timmar i veckan som går till att flytta data, sammanställa rapporter och skriva in samma sak flera gånger."
+    fields={[
+      { id: 'timmar', label: 'Manuella timmar per vecka', value: 10, suffix: 'h' },
+      { id: 'timkostnad', label: 'Timkostnad', value: 450, suffix: 'kr', step: 50 },
+      { id: 'andel', label: 'Andel som automatiseras', value: 70, suffix: '%', max: 100 },
+    ]}
+    resultLabel="Kostnad som kan frigöras per år"
+    footnote="En uppskattning utifrån era egna siffror och 46 arbetsveckor per år, inget löfte. Genomgången ger den riktiga siffran."
+  />
+</AreaPage>

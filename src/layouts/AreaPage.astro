@@ -1,0 +1,146 @@
+---
+// Mall för affärsområdenas landningssidor (/hotell, /ehandel, /automation).
+// Ordningen är densamma på alla tre: hero, problem, flöde, [extra], kalkylator,
+// vad som ingår, paket, garanti, vanliga frågor, avslut.
+import Base from './Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { contactHref, type AreaKey } from '../data/site';
+
+interface Props {
+  area: AreaKey;
+  title: string;
+  description: string;
+  eyebrow: string;
+  headline: string;
+  lede: string;
+  leaksTitle: string;
+  leaks: { problem: string; text: string; fix: string }[];
+  stepsTitle: string;
+  steps: { name: string; text: string }[];
+  includes: string[];
+  values: { title: string; text: string }[];
+  pkg: { label: string; value: string; note?: string }[];
+  guarantee: string;
+  faq: { q: string; a: string }[];
+  cta: { title: string; text: string };
+}
+const p = Astro.props;
+---
+<Base title={p.title} description={p.description} area={p.area}>
+  <!-- Hero -->
+  <section class="area-soft">
+    <div class="wrap grid items-center gap-14 py-16 md:py-24 lg:grid-cols-[1.25fr_1fr]">
+      <div>
+        <p class="font-semibold area-text">{p.eyebrow}</p>
+        <h1 class="mt-5 !text-[clamp(2.3rem,4.6vw,3.7rem)] !leading-[1.04]">{p.headline}</h1>
+        <p class="lede mt-6">{p.lede}</p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href={contactHref(p.area)} class="btn btn-sun">Boka en genomgång</a>
+          <a href="#flodet" class="btn btn-ghost">Så fungerar det</a>
+        </div>
+      </div>
+      <slot name="receipt" />
+    </div>
+  </section>
+
+  <!-- Problemet -->
+  <section class="py-20 md:py-28">
+    <div class="wrap">
+      <h2 class="max-w-[22ch]">{p.leaksTitle}</h2>
+      <div class="mt-12 divide-y divide-line border-y border-line">
+        {p.leaks.map((l) => (
+          <div class="grid gap-4 py-10 md:grid-cols-[0.9fr_1.3fr_1.1fr] md:gap-12">
+            <h3 class="text-2xl">{l.problem}</h3>
+            <p class="text-ink-soft">{l.text}</p>
+            <p class="border-l-4 area-border pl-4 font-medium">{l.fix}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Flödet (verklig ordningsföljd) -->
+  <section id="flodet" class="scroll-mt-20 border-t border-line py-20 md:py-28">
+    <div class="wrap">
+      <h2 class="max-w-[20ch]">{p.stepsTitle}</h2>
+      <ol class="mt-12 divide-y divide-line border-y border-line">
+        {p.steps.map((s, i) => (
+          <li class="grid gap-3 py-8 md:grid-cols-[4rem_14rem_1fr] md:gap-8">
+            <span class="font-display text-4xl font-bold area-text">{i + 1}</span>
+            <h3 class="text-2xl">{s.name}</h3>
+            <p class="text-ink-soft measure">{s.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <slot name="extra" />
+
+  <slot name="calculator" />
+
+  <!-- Vad som ingår + värdelöften -->
+  <section class="py-20 md:py-28">
+    <div class="wrap grid gap-14 lg:grid-cols-2">
+      <div>
+        <h2>Det här ingår</h2>
+        <ul class="mt-8 space-y-3">
+          {p.includes.map((i) => (
+            <li class="flex gap-3">
+              <svg class="mt-1.5 h-4 w-4 flex-none area-text" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5 6 12l8-8" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
+              <span>{i}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="space-y-8">
+        {p.values.map((v) => (
+          <div>
+            <h3>{v.title}</h3>
+            <p class="mt-2 text-ink-soft">{v.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Paket och garanti -->
+  <section class="border-t border-line py-20 md:py-28">
+    <div class="wrap">
+      <h2>Paket och pris</h2>
+      <dl class="mt-10 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]">
+        {p.pkg.map((x) => (
+          <div class="bg-white p-6">
+            <dt class="text-sm font-semibold area-text">{x.label}</dt>
+            <dd class="mt-2 font-display text-xl font-semibold leading-snug">{x.value}</dd>
+            {x.note && <dd class="mt-2 text-sm text-ink-soft">{x.note}</dd>}
+          </div>
+        ))}
+      </dl>
+      <div class="mt-8 flex flex-col gap-4 rounded-xl border-2 area-border p-6 md:flex-row md:items-center md:gap-8 md:p-8">
+        <p class="font-display text-2xl font-bold area-text md:w-56 md:flex-none">Vår garanti</p>
+        <p class="text-lg">{p.guarantee}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vanliga frågor -->
+  <section class="bg-mist py-20 md:py-24">
+    <div class="wrap max-w-3xl">
+      <h2>Vanliga frågor</h2>
+      <div class="mt-8 divide-y divide-line border-y border-line">
+        {p.faq.map((f) => (
+          <details class="group py-5">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+              {f.q}
+              <span class="text-2xl leading-none transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="mt-3 text-ink-soft">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title={p.cta.title} text={p.cta.text} area={p.area} />
+</Base>

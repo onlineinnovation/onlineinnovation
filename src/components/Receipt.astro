@@ -1,0 +1,71 @@
+---
+// Heroelementet: en rapport som "skrivs ut" som ett kvitto när sidan laddas.
+// Siffrorna är exempel och märks som det. Enda animationen på sajten.
+interface Row { label: string; mid?: string; value: string }
+interface Props {
+  heading: string;
+  period: string;
+  subtitle: string;
+  rows: Row[];
+  summary?: { label: string; value: string }[];
+  total: { label: string; value: string };
+  note?: string;
+  caption: string;
+}
+const { heading, period, subtitle, rows, summary = [], total, note, caption } = Astro.props;
+const base = rows.length;
+---
+<figure class="relative mx-auto w-full max-w-[23rem]" aria-label={`Exempel: ${heading.toLowerCase()}`}>
+  <div class="paper relative bg-white px-6 pb-8 pt-6 font-mono text-[0.84rem] text-ink shadow-[0_24px_60px_-24px_rgba(20,24,30,0.45)] ring-1 ring-ink/5">
+    <div class="flex items-baseline justify-between gap-3 border-b border-dashed border-ink/30 pb-3">
+      <span class="font-medium">{heading}</span>
+      <span class="text-ink-soft">{period}</span>
+    </div>
+    <p class="mt-2 text-ink-soft">{subtitle}</p>
+
+    <dl class="mt-4 space-y-2.5">
+      {rows.map((r, i) => (
+        <div class="row grid grid-cols-[1fr_auto_auto] items-baseline gap-3" style={`--i:${i}`}>
+          <dt>{r.label}</dt>
+          <dd class="text-ink-soft">{r.mid}</dd>
+          <dd class="min-w-[5.5rem] text-right font-medium tabular-nums">{r.value}</dd>
+        </div>
+      ))}
+    </dl>
+
+    {summary.length > 0 && (
+      <div class="row mt-4 space-y-2 border-t border-dashed border-ink/30 pt-3" style={`--i:${base}`}>
+        {summary.map((s) => (
+          <div class="flex justify-between gap-3"><span>{s.label}</span><span class="font-medium tabular-nums">{s.value}</span></div>
+        ))}
+      </div>
+    )}
+
+    <div class="row mt-4 flex items-baseline justify-between gap-3 border-y-2 border-ink py-2.5 text-[0.95rem]" style={`--i:${base + 1}`}>
+      <span class="font-medium">{total.label}</span>
+      <span class="font-medium tabular-nums">{total.value}</span>
+    </div>
+
+    {note && <div class="row mt-3 text-[0.76rem] text-ink-soft" style={`--i:${base + 2}`}>{note}</div>}
+  </div>
+  <figcaption class="mt-4 text-center text-sm text-ink-soft">{caption}</figcaption>
+</figure>
+
+<style>
+  .paper {
+    -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - 8px) no-repeat,
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 16px 8px repeat-x;
+    mask: linear-gradient(#000 0 0) top / 100% calc(100% - 8px) no-repeat,
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 16px 8px repeat-x;
+    animation: feed 1.1s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .row {
+    animation: print 0.35s ease-out both;
+    animation-delay: calc(0.55s + var(--i) * 0.16s);
+  }
+  @keyframes feed {
+    from { clip-path: inset(0 0 100% 0); transform: translateY(-12px); }
+    to { clip-path: inset(0 0 0 0); transform: none; }
+  }
+  @keyframes print { from { opacity: 0; } to { opacity: 1; } }
+</style>

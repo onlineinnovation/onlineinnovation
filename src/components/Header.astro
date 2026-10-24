@@ -1,7 +1,10 @@
 ---
 import Logo from './Logo.astro';
-import { nav } from '../data/site';
+import { nav, contactHref, type AreaKey } from '../data/site';
+interface Props { area?: AreaKey }
+const { area } = Astro.props;
 const path = Astro.url.pathname;
+const cta = contactHref(area);
 ---
 <header class="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur">
   <div class="wrap flex h-16 items-center justify-between gap-6">
@@ -14,11 +17,11 @@ const path = Astro.url.pathname;
             <a
               href={item.href}
               aria-current={path.startsWith(item.href) ? 'page' : undefined}
-              class="py-2 hover:text-forest aria-[current=page]:underline aria-[current=page]:decoration-sun aria-[current=page]:decoration-[3px] aria-[current=page]:underline-offset-8"
+              class="py-2 hover:text-ink-soft aria-[current=page]:underline aria-[current=page]:decoration-[3px] aria-[current=page]:underline-offset-8 aria-[current=page]:[text-decoration-color:var(--area)]"
             >{item.label}</a>
           </li>
         ))}
-        <li><a href="/kontakt/" class="btn btn-sun !py-2 !px-5">Boka en genomgång</a></li>
+        <li><a href={cta} class="btn btn-sun !py-2 !px-5">Boka en genomgång</a></li>
       </ul>
     </nav>
 
@@ -31,7 +34,7 @@ const path = Astro.url.pathname;
           {nav.map((item) => (
             <li><a href={item.href} class="block border-b border-line py-3">{item.label}</a></li>
           ))}
-          <li class="pt-4"><a href="/kontakt/" class="btn btn-sun w-full">Boka en genomgång</a></li>
+          <li class="pt-4"><a href={cta} class="btn btn-sun w-full">Boka en genomgång</a></li>
         </ul>
       </nav>
     </details>

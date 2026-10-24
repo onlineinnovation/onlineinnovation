@@ -1,0 +1,82 @@
+---
+// Enkel kalkylator. Varje område skickar in sina fält och väljer formel med `kind`.
+// Resultatet är en uppskattning och märks som det.
+import type { AreaKey } from '../data/site';
+
+interface Field { id: string; label: string; value: number; suffix: string; step?: number; min?: number; max?: number }
+interface Props { kind: AreaKey; title: string; intro: string; fields: Field[]; resultLabel: string; footnote: string }
+const { kind, title, intro, fields, resultLabel, footnote } = Astro.props;
+---
+<section class="bg-mist py-16 md:py-24">
+  <div class="wrap grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+    <div>
+      <h2>{title}</h2>
+      <p class="mt-4 text-ink-soft measure">{intro}</p>
+    </div>
+    <form class="calc rounded-2xl bg-white p-6 shadow-sm ring-1 ring-ink/5 md:p-8" data-kind={kind} onsubmit="return false">
+      <div class:list={['grid gap-5', fields.length === 4 ? 'sm:grid-cols-2' : 'sm:grid-cols-3', 'items-end']}>
+        {fields.map((f) => (
+          <label class="grid gap-1.5">
+            <span class="text-sm font-medium leading-snug">{f.label}</span>
+            <span class="flex items-center gap-2">
+              <input
+                class="field w-full tabular-nums"
+                type="number"
+                inputmode="decimal"
+                name={f.id}
+                value={f.value}
+                min={f.min ?? 0}
+                max={f.max}
+                step={f.step ?? 1}
+              />
+              <span class="shrink-0 text-sm text-ink-soft">{f.suffix}</span>
+            </span>
+          </label>
+        ))}
+      </div>
+      <div class="mt-7 border-t border-line pt-6" aria-live="polite">
+        <p class="text-sm font-medium text-ink-soft">{resultLabel}</p>
+        <p class="mt-1 font-display text-4xl font-bold area-text tabular-nums md:text-5xl" data-out="main">–</p>
+        <p class="mt-2 text-ink-soft" data-out="sub"></p>
+      </div>
+      <p class="mt-5 text-xs text-ink-soft">{footnote}</p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const fmt = (n: number) => Math.round(n).toLocaleString('sv-SE');
+  const formulas: Record<string, (v: Record<string, number>) => [string, string]> = {
+    // förfrågningar/mån × snittvärde × fler bokningar (procentenheter) × 12
+    hotell: (v) => {
+      const extra = v.forfragningar * (v.okning / 100) * 12;
+      return [`${fmt(extra * v.snittvarde)} kr`, `ungefär ${fmt(extra)} fler bokade konferenser per år`];
+    },
+    // produkter/mån × minuter/produkt × andel som automatiseras × 12
+    ehandel: (v) => {
+      const hours = (v.produkter * v.minuter * (v.andel / 100) * 12) / 60;
+      return [`${fmt(hours)} timmar`, `per år, värt ungefär ${fmt(hours * v.timkostnad)} kr i arbetstid`];
+    },
+    // timmar/vecka × andel som automatiseras × 46 arbetsveckor
+    automation: (v) => {
+      const hours = v.timmar * (v.andel / 100) * 46;
+      return [`${fmt(hours * v.timkostnad)} kr`, `per år, ungefär ${fmt(hours)} timmar som frigörs`];
+    },
+  };
+
+  document.querySelectorAll<HTMLFormElement>('form.calc').forEach((form) => {
+    const f = formulas[form.dataset.kind ?? ''];
+    if (!f) return;
+    const main = form.querySelector('[data-out="main"]')!;
+    const sub = form.querySelector('[data-out="sub"]')!;
+    const update = () => {
+      const v: Record<string, number> = {};
+      form.querySelectorAll<HTMLInputElement>('input').forEach((i) => (v[i.name] = Math.max(0, Number(i.value) || 0)));
+      const [a, b] = f(v);
+      main.textContent = a;
+      sub.textContent = b;
+    };
+    form.addEventListener('input', update);
+    update();
+  });
+</script>
