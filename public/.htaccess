@@ -27,12 +27,10 @@ DirectoryIndex index.html
   RewriteRule ^index\.php/om-oss/?$ /om-oss/ [R=301,L]
   RewriteRule ^index\.php/kontakt/?$ /kontakt/ [R=301,L]
   RewriteRule ^creative/contact/?$ /kontakt/ [R=301,L]
-  RewriteRule ^index\.php/tjanster/?$ /tjanster/ [R=301,L]
-  RewriteRule ^index\.php/(projects|portfolio)/?$ /case/ [R=301,L]
-  RewriteRule ^index\.php/project(-category)?/ /case/ [R=301,L]
-  RewriteRule ^index\.php/(webbutveckling|webbdesign)/?$ /tjanster/ [R=301,L]
-  RewriteRule ^index\.php/(seo|marknadsforing|sociala-medier)/?$ /marknadsforing/ [R=301,L]
-  RewriteRule ^index\.php/e-handel/?$ /case/ [R=301,L]
+  RewriteRule ^index\.php/(tjanster|webbutveckling|webbdesign|seo|marknadsforing|sociala-medier|e-handel)/?$ /sa-fungerar-det/ [R=301,L]
+  RewriteRule ^index\.php/(projects|portfolio|project|project-category)(/.*)?$ / [R=301,L]
+  # Adresser från första utkastet av nya sajten
+  RewriteRule ^(tjanster|marknadsforing|case)(/.*)?$ /sa-fungerar-det/ [R=301,L]
   # Blogginläggen flyttas till /blogg/ – tills dess pekar de till startsidan
   RewriteRule ^index\.php/(nyheter|\d{4}/\d{2}/\d{2}/.*)$ / [R=302,L]
   # Gamla WordPress-sökvägar som inte finns längre

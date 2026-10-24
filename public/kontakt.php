@@ -47,10 +47,10 @@ foreach (['namn', 'epost'] as $k) {
 
 $body = "Ny förfrågan från onlineinnovation.se\n\n"
       . "Namn: {$data['namn']}\n"
-      . "Företag: {$data['foretag']}\n"
+      . "Hotell: {$data['foretag']}\n"
       . "E-post: {$data['epost']}\n"
       . "Telefon: {$data['telefon']}\n"
-      . "Ämne: {$data['amne']}\n\n"
+      . "Konferenser per år: {$data['amne']}\n\n"
       . $data['meddelande'] . "\n";
 
 $headers = [
@@ -59,7 +59,7 @@ $headers = [
     'Content-Type: text/plain; charset=UTF-8',
 ];
 
-$subject = '=?UTF-8?B?' . base64_encode('Förfrågan: ' . $data['amne'] . ' – ' . $data['namn']) . '?=';
+$subject = '=?UTF-8?B?' . base64_encode('Genomgång: ' . $data['namn'] . ($data['foretag'] ? ', ' . $data['foretag'] : '')) . '?=';
 $mailOk = @mail(TO_EMAIL, $subject, $body, implode("\r\n", $headers));
 
 // Valfri Make-webhook

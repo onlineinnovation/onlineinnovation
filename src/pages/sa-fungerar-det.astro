@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { steps } from '../data/site';
+
+const phases = [
+  { name: 'Genomgång', text: 'Vi går igenom hur konferenserna säljs idag: var förfrågningarna kommer ifrån, vem som svarar, hur offerten skickas och vilka system ni använder.' },
+  { name: 'Uppsättning', text: 'Vi bygger annonserna, landningssidorna, förfrågan, svaren och uppföljningen och kopplar ihop dem med era system. Allt testas med riktiga förfrågningar innan det går live.' },
+  { name: 'Drift', text: 'Vi sköter annonserna, justerar efter säsong och vad som bokas, och går igenom veckorapporten med er en gång i månaden.' },
+];
+
+const faq = [
+  { q: 'Fungerar det med vårt bokningssystem?', a: 'Systemet bygger på det ni redan har. Förfrågningar och offertunderlag kan hamna i mejlen, i ett CRM eller i bokningssystemet om det har en öppen koppling. Det går vi igenom vid första genomgången.' },
+  { q: 'Vem skickar offerten?', a: 'Er säljare, som vanligt. Systemet tar fram underlaget och skickar det första svaret till beställaren, men offerten och priset är ert.' },
+  { q: 'Hur snabbt syns resultat?', a: 'Annonserna ger förfrågningar redan första veckorna. Hur många av dem som blir bokningar beror på säsong och hur snabbt offerterna går ut, och det är just det som veckorapporten visar.' },
+  { q: 'Vad kostar det?', a: 'En fast avgift för uppsättning och en månadsavgift för drift och annonshantering. Annonsbudgeten betalar ni direkt till Google. Ni får ett fast pris efter genomgången.' },
+];
+---
+<Base title="Så fungerar det" description="Annonser per konferenstyp, förfrågningar som besvaras direkt, automatisk uppföljning och veckorapport med bokat värde.">
+  <section class="on-dark bg-forest text-white">
+    <div class="wrap py-16 md:py-24">
+      <h1 class="max-w-[18ch]">Så går en förfrågan från annons till bokning</h1>
+      <p class="lede mt-6 !text-white/80">
+        Fem steg som hänger ihop. Varje steg går att mäta, och det är därför hela kedjan går att
+        förbättra vecka för vecka.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24">
+    <div class="wrap">
+      <ol class="divide-y divide-line border-y border-line">
+        {steps.map((s, i) => (
+          <li class="grid gap-4 py-10 md:grid-cols-[5rem_1fr_1.6fr] md:gap-10">
+            <span class="font-display text-5xl font-bold text-forest">{i + 1}</span>
+            <div>
+              <h2 class="text-3xl">{s.name}</h2>
+              <p class="mt-1 font-medium text-ink-soft">{s.short}</p>
+            </div>
+            <p class="text-lg measure">{s.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="bg-mist py-16 md:py-24">
+    <div class="wrap">
+      <h2>Så kommer ni igång</h2>
+      <ol class="mt-12 grid gap-10 md:grid-cols-3">
+        {phases.map((p, i) => (
+          <li class="border-t-4 border-sun pt-5">
+            <span class="font-display text-sm font-semibold text-ink-soft">Steg {i + 1}</span>
+            <h3 class="mt-1">{p.name}</h3>
+            <p class="mt-2 text-ink-soft">{p.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24">
+    <div class="wrap max-w-3xl">
+      <h2>Vanliga frågor</h2>
+      <div class="mt-8 divide-y divide-line border-y border-line">
+        {faq.map((f) => (
+          <details class="group py-5">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+              {f.q}
+              <span class="text-2xl leading-none transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="mt-3 text-ink-soft">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

@@ -1,8 +1,8 @@
 ---
 interface Props { title?: string; text?: string }
 const {
-  title = 'Börja med ett samtal om era system',
-  text = 'Trettio minuter. Vi går igenom vilka system ni har, var det manuella arbetet sitter och vilka siffror ni saknar. Ni får en kort skiss på vad som går att automatisera, oavsett om vi jobbar ihop sedan eller inte.',
+  title = 'Boka en genomgång av er konferensförsäljning',
+  text = 'Trettio minuter. Vi går igenom var era konferensförfrågningar kommer ifrån, hur snabbt de besvaras och vad som händer med offerterna. Ni får en kort skiss på vad som går att förbättra, oavsett om vi jobbar ihop sedan eller inte.',
 } = Astro.props;
 ---
 <section class="bg-sun">
@@ -11,6 +11,6 @@ const {
       <h2>{title}</h2>
       <p class="mt-4 max-w-[58ch] text-lg">{text}</p>
     </div>
-    <a href="/kontakt/" class="btn bg-ink text-white hover:bg-forest">Boka ett samtal</a>
+    <a href="/kontakt/" class="btn bg-ink text-white hover:bg-forest">Boka en genomgång</a>
   </div>
 </section>

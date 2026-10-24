@@ -2,13 +2,13 @@
 import Base from '../layouts/Base.astro';
 import { site } from '../data/site';
 ---
-<Base title="Kontakt" description="Boka ett samtal med Online Innovation om automation, dashboards och marknadsföring för hotell och restauranger.">
+<Base title="Kontakt" description="Boka en genomgång av hotellets konferensförsäljning med Online Innovation.">
   <section class="on-dark bg-forest text-white">
     <div class="wrap py-16 md:py-20">
-      <h1 class="max-w-[16ch]">Boka ett samtal</h1>
+      <h1 class="max-w-[16ch]">Boka en genomgång</h1>
       <p class="lede mt-6 !text-white/80">
-        Berätta kort om verksamheten och vilka system ni använder. Vi hör av oss inom en arbetsdag
-        och föreslår en tid.
+        Berätta kort om hotellet och hur ni säljer konferenser idag. Vi hör av oss inom en
+        arbetsdag och föreslår en tid.
       </p>
     </div>
   </section>
@@ -24,7 +24,7 @@ import { site } from '../data/site';
             <input name="namn" required autocomplete="name" class="rounded-lg border border-line bg-white px-4 py-3 focus:border-forest" />
           </label>
           <label class="grid gap-1.5">
-            <span class="font-medium">Företag</span>
+            <span class="font-medium">Hotell eller anläggning</span>
             <input name="foretag" autocomplete="organization" class="rounded-lg border border-line bg-white px-4 py-3 focus:border-forest" />
           </label>
           <label class="grid gap-1.5">
@@ -36,18 +36,17 @@ import { site } from '../data/site';
             <input name="telefon" type="tel" autocomplete="tel" class="rounded-lg border border-line bg-white px-4 py-3 focus:border-forest" />
           </label>
           <label class="grid gap-1.5 sm:col-span-2">
-            <span class="font-medium">Vad gäller det?</span>
+            <span class="font-medium">Ungefär hur många konferenser har ni per år?</span>
             <select name="amne" class="rounded-lg border border-line bg-white px-4 py-3 focus:border-forest">
-              <option>Automation av administration</option>
-              <option>Dashboard och nyckeltal</option>
-              <option>Extern teknikchef</option>
-              <option>Marknadsföring</option>
-              <option>Något annat</option>
+              <option>Färre än 25</option>
+              <option>25–100</option>
+              <option>Fler än 100</option>
+              <option>Vet inte</option>
             </select>
           </label>
           <label class="grid gap-1.5 sm:col-span-2">
             <span class="font-medium">Meddelande</span>
-            <textarea name="meddelande" rows="6" required placeholder="T.ex. vilka system ni har idag och vad som tar mest tid." class="rounded-lg border border-line bg-white px-4 py-3 focus:border-forest"></textarea>
+            <textarea name="meddelande" rows="6" required placeholder="T.ex. var förfrågningarna kommer ifrån idag och vilket bokningssystem ni använder." class="rounded-lg border border-line bg-white px-4 py-3 focus:border-forest"></textarea>
           </label>
           <!-- Fälla för spambottar, ska lämnas tom -->
           <label class="hidden" aria-hidden="true">Webbplats <input name="webbplats" tabindex="-1" autocomplete="off" /></label>

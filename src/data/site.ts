@@ -2,9 +2,9 @@
 
 export const site = {
   name: 'Online Innovation',
-  tagline: 'Digital infrastruktur för besöksnäringen',
+  tagline: 'Fler konferensbokningar för hotell',
   description:
-    'Vi kopplar ihop hotellets och restaurangens system, automatiserar administrationen och ger ägaren marginalerna i realtid. Kombinerat med marknadsföring som går att mäta i kronor.',
+    'Ett system för konferensförsäljning på hotell. Annonser som når företag som planerar konferens, förfrågningar som besvaras direkt och uppföljning som sker av sig själv.',
   email: 'info@onlineinnovation.se',
   hours: 'Mån–fre 09–17',
   instagram: 'https://www.instagram.com/onlineinnovationsverige/',
@@ -12,107 +12,56 @@ export const site = {
 };
 
 export const nav = [
-  { href: '/tjanster/', label: 'Tjänster' },
-  { href: '/marknadsforing/', label: 'Marknadsföring' },
-  { href: '/case/', label: 'Case' },
+  { href: '/sa-fungerar-det/', label: 'Så fungerar det' },
   { href: '/om-oss/', label: 'Om oss' },
 ];
 
-export type Service = {
-  slug: string;
-  name: string;
-  short: string;
-  problem: string;
-  price: string;
-  priceNote: string;
-  href: string;
-};
-
-export const services: Service[] = [
+// Konferenstyperna. Varje typ får egna annonser och landningssidor,
+// eftersom de söks på olika sätt och bokas av olika personer.
+export const conferenceTypes = [
   {
-    slug: 'automation',
-    name: 'Zero-Touch Administration',
-    short: 'Systemen pratar med varandra, så att personalen slipper flytta data för hand.',
-    problem: 'Bokning, kassa, schema och bokföring lever i varsitt system. Någon sitter varje vecka och för över siffror manuellt.',
-    price: '25 000–40 000 kr',
-    priceNote: 'Fast pris för kartläggning och uppsättning, beroende på antal system.',
-    href: '/tjanster/automation/',
+    name: 'Dagkonferens',
+    text: 'Möteslokal, teknik och lunch för en dag. Bokas ofta med kort varsel av en assistent eller HR.',
   },
   {
-    slug: 'dashboard',
-    name: "The Operator's Dashboard",
-    short: 'Personalkostnad, RevPAR och snittnota per dag, samlat i mobilen.',
-    problem: 'Månadsrapporten från redovisningsbyrån kommer den 15:e. Då är det för sent att ändra något i schemat för helgen som redan varit.',
-    price: '15 000 kr + 3 000–5 000 kr/mån',
-    priceNote: 'Engångsavgift för uppsättning, sedan licens och underhåll per månad.',
-    href: '/tjanster/dashboard/',
+    name: 'Konferens med övernattning',
+    text: 'Ett eller flera dygn med rum, middag och aktivitet. Högst ordervärde och längst beslutstid.',
   },
   {
-    slug: 'tech-partner',
-    name: 'Fractional Head of Tech',
-    short: 'En extern teknikchef för hotell- och restauranggrupper.',
-    problem: 'Tech-stacken har vuxit fram system för system. Ingen äger helheten, och avtalen med leverantörerna förhandlas sällan om.',
-    price: '15 000–30 000 kr/mån',
-    priceNote: 'Månatlig retainer med strategimöte om marginaler varje månad.',
-    href: '/tjanster/tech-partner/',
+    name: 'Ledningsgrupp och styrelse',
+    text: 'Små grupper som vill ha avskildhet och hög service. Återkommer gärna varje år.',
+  },
+  {
+    name: 'Kick-off och teambuilding',
+    text: 'Större grupper där aktiviteten säljer platsen. Toppar inför vår och höst.',
   },
 ];
 
-export type Case = {
-  name: string;
-  sector: string;
-  url?: string;
-  summary: string;
-  work: string[];
-};
-
-// Casetexterna bygger på beskrivningarna från tidigare sajt.
-// Lägg gärna till konkreta resultat (siffror) när kunden godkänt det.
-export const cases: Case[] = [
+// Flödet från annons till bokning. Detta är en verklig ordningsföljd.
+export const steps = [
   {
-    name: 'Pensionat Ekenäs Koster',
-    sector: 'Hotell, konferens och restaurang',
-    url: 'https://pekoster.com/sv/konferens',
-    summary:
-      'Vi sköter hela den digitala marknadsföringen och bygger landningssidorna som annonserna leder till, separat för hotell, konferens och restaurang.',
-    work: ['Google Ads', 'Landningssidor', 'Konverteringsoptimering'],
+    name: 'Synas',
+    short: 'Annonser och sidor per konferenstyp',
+    text: 'Google Ads och landningssidor för varje typ av konferens. Den som söker dagkonferens möter en annan sida än den som planerar ledningsgruppens internat. Budgeten flyttas mot det som ger bokningar.',
   },
   {
-    name: 'Kust Event AB',
-    sector: 'Event och konferens',
-    url: 'https://kustevent.com/sv/',
-    summary:
-      'Digital marknadsföring för hela koncernen, främst via Google Ads, och optimering av deras webbplatser för högre konverteringsgrad och bättre synlighet i sök.',
-    work: ['Google Ads', 'Sökoptimering', 'Webbdesign'],
+    name: 'Fånga',
+    short: 'En förfrågan som ställer rätt frågor',
+    text: 'Datum, antal deltagare, rum, mat, teknik och budget samlas in direkt. Säljaren slipper mejla fram och tillbaka för att få grunderna.',
   },
   {
-    name: 'Rocket Diner',
-    sector: 'Restaurang',
-    url: 'https://rocketdiner.se/',
-    summary:
-      'Marknadsstrategi för e-handel tillsammans med kunden och löpande sökoptimering av rocketdiner.se.',
-    work: ['Sökoptimering', 'E-handel', 'Strategi'],
+    name: 'Svara',
+    short: 'Offertunderlag samma timme',
+    text: 'Beställaren får en bekräftelse med prisindikation och nästa steg direkt. Säljaren får ett ifyllt offertunderlag och kan skicka offerten på några minuter.',
   },
   {
-    name: 'Plant Art',
-    sector: 'E-handel, B2C och B2B',
-    url: 'https://plantart.se/',
-    summary:
-      'En komplett e-handel för konstväxter till både privatkunder och företag. Digital strategi, sökoptimering, Google Ads och utveckling i Shopifys Liquid.',
-    work: ['Shopify', 'Google Ads', 'Sökoptimering'],
+    name: 'Följa upp',
+    short: 'Påminnelser som går av sig själva',
+    text: 'Obesvarade offerter följs upp automatiskt. Företag som konferenserat tidigare får en inbjudan inför nästa säsong, innan de hunnit leta någon annanstans.',
   },
   {
-    name: 'KGH Accountancy & VAT Services',
-    sector: 'Redovisning',
-    summary:
-      'En av våra längsta kundrelationer. Löpande digital marknadsföring, sökoptimering, webbdesign och webbutveckling.',
-    work: ['Sökoptimering', 'Webbutveckling', 'Marknadsföring'],
-  },
-  {
-    name: 'Dead By April',
-    sector: 'E-handel, artist',
-    url: 'https://www.deadbyapril.com/pages/about-us',
-    summary: 'En komplett Shopify-butik med specialbyggda funktioner som shoppen behövde.',
-    work: ['Shopify', 'Utveckling'],
+    name: 'Mäta',
+    short: 'Bokat värde per annons och vecka',
+    text: 'En veckorapport visar förfrågningar, offererat och bokat värde per konferenstyp och kanal. Ni ser vad varje annonskrona gav i konferensintäkt.',
   },
 ];
