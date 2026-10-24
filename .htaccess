@@ -1,0 +1,56 @@
+# Online Innovation – Apache-inställningar (Plesk)
+
+ErrorDocument 404 /404.html
+DirectoryIndex index.html
+
+# Förhandsvisningen på ny.onlineinnovation.se ska inte indexeras av Google
+<IfModule mod_headers.c>
+  <If "%{HTTP_HOST} =~ /^ny\./">
+    Header set X-Robots-Tag "noindex, nofollow"
+  </If>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Tvinga https och adress utan www
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+  # --- 301-omdirigeringar från gamla WordPress-sajten ---
+  RewriteRule ^index\.php/?$ / [R=301,L]
+  RewriteRule ^index\.php/om-oss/?$ /om-oss/ [R=301,L]
+  RewriteRule ^index\.php/kontakt/?$ /kontakt/ [R=301,L]
+  RewriteRule ^creative/contact/?$ /kontakt/ [R=301,L]
+  RewriteRule ^index\.php/e-handel/?$ /ehandel/ [R=301,L]
+  RewriteRule ^index\.php/(tjanster|webbutveckling|webbdesign|seo|marknadsforing|sociala-medier)/?$ / [R=301,L]
+  RewriteRule ^index\.php/(projects|portfolio|project|project-category)(/.*)?$ / [R=301,L]
+  # Adresser från tidigare utkast av nya sajten
+  RewriteRule ^sa-fungerar-det/?$ /hotell/ [R=301,L]
+  RewriteRule ^(tjanster|marknadsforing|case)(/.*)?$ / [R=301,L]
+  # Blogginläggen flyttas till /blogg/ – tills dess pekar de till startsidan
+  RewriteRule ^index\.php/(nyheter|\d{4}/\d{2}/\d{2}/.*)$ / [R=302,L]
+  # Gamla WordPress-sökvägar som inte finns längre
+  RewriteRule ^(wp-admin|wp-login\.php|xmlrpc\.php|wp-json) - [R=410,L]
+</IfModule>
+
+# Cache för byggda filer (Astro sätter hash i filnamnen under /_astro/)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/xml
+</IfModule>
