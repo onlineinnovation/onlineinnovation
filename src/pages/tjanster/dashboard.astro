@@ -1,0 +1,27 @@
+---
+import ServicePage from '../../layouts/ServicePage.astro';
+---
+<ServicePage
+  slug="dashboard"
+  headline="Se om helgen var lönsam innan helgen är slut."
+  intro="En live-dashboard i Looker Studio som hämtar data från kassa, schema, inköp och bokning. Ägaren ser personalkostnad, råvarukostnad, RevPAR och snittnota per dag, i mobilen."
+  includes={[
+    'Koppling till kassasystem, personalplanering (t.ex. Personalkollen), bokningssystem och inköp',
+    'Nyckeltal per dag, vecka och enhet: personalkostnad i procent, råvarukostnad, snittnota, beläggning och RevPAR',
+    'Mål per nyckeltal, så att avvikelser syns direkt',
+    'Mobilanpassad vy för ägare och platschefer',
+    'Löpande underhåll när system eller nyckeltal ändras',
+  ]}
+  examples={[
+    { title: 'Personalkostnad per kväll', text: 'Schemat från Personalkollen ställs mot kassans försäljning, timme för timme. Ni ser vilka pass som var överbemannade och kan justera nästa vecka.' },
+    { title: 'Flera enheter i samma vy', text: 'För grupper med flera hotell eller restauranger visas varje enhet bredvid de andra, med samma definitioner.' },
+    { title: 'RevPAR och beläggning', text: 'Intäkt per tillgängligt rum, beläggning och genomsnittspris per natt, uppdaterat från bokningssystemet.' },
+    { title: 'Råvarukostnad från fakturor', text: 'Leverantörsfakturor kategoriseras automatiskt och ställs mot försäljningen, så att råvaruprocenten syns per vecka.' },
+  ]}
+  fitsFor="Ägare och platschefer som vill styra på siffror under månaden, inte efter den."
+  faq={[
+    { q: 'Varför Looker Studio?', a: 'Det är gratis att använda, fungerar bra i mobilen och kan delas med rätt personer. Licensavgiften hos oss täcker datakopplingarna och underhållet.' },
+    { q: 'Ersätter det redovisningsbyrån?', a: 'Nej. Bokslutet och den formella redovisningen sköts som vanligt. Dashboarden ger er styrdata under tiden.' },
+    { q: 'Hur aktuella är siffrorna?', a: 'Det beror på vad systemen tillåter. Kassa och schema uppdateras oftast flera gånger per dag, fakturor när de kommer in.' },
+  ]}
+/>

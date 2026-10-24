@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+/* Online Innovation – designsystem
+   Gul (#fdd444) är behållen från tidigare varumärke.
+   Skog är basfärgen för mörka partier, papper för ljusa. */
+@theme {
+  --color-ink: #1c1f24;
+  --color-ink-soft: #4a5058;
+  --color-paper: #ffffff;
+  --color-mist: #eef1ed;
+  --color-line: #d7dcd5;
+  --color-forest: #1f3b33;
+  --color-forest-deep: #162b25;
+  --color-sun: #fdd444;
+  --color-sun-soft: #fff4c4;
+  --color-gain: #2e7d5b;
+  --color-loss: #b8432c;
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  h1, h2, h3 { @apply font-display text-balance; letter-spacing: -0.02em; }
+  h1 { font-size: clamp(2.4rem, 5.6vw, 4.4rem); line-height: 1.02; font-weight: 700; }
+  h2 { font-size: clamp(1.8rem, 3.6vw, 2.75rem); line-height: 1.08; font-weight: 650; }
+  h3 { font-size: 1.35rem; line-height: 1.2; font-weight: 600; }
+  p { @apply text-pretty; }
+  :focus-visible { outline: 3px solid var(--color-sun); outline-offset: 3px; border-radius: 2px; }
+  ::selection { background: var(--color-sun); color: var(--color-ink); }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+}
+
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
+  .measure { max-width: 64ch; }
+  .lede { @apply text-lg sm:text-xl text-ink-soft; line-height: 1.55; max-width: 58ch; }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold transition-colors;
+  }
+  .btn-sun { @apply bg-sun text-ink hover:bg-[#f3c21f]; }
+  .btn-ghost { @apply border border-current hover:bg-ink/5; }
+  .on-dark .btn-ghost { @apply hover:bg-white/10; }
+
+  .prose-oi p { @apply mb-5; }
+  .prose-oi h2 { @apply mt-12 mb-4; font-size: 1.75rem; }
+  .prose-oi h3 { @apply mt-8 mb-3; }
+  .prose-oi ul { @apply mb-6 list-disc pl-6 space-y-2; }
+  .prose-oi a { @apply underline decoration-sun decoration-2 underline-offset-4; }
+}

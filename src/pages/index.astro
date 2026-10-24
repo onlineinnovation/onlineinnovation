@@ -1,0 +1,139 @@
+---
+import Base from '../layouts/Base.astro';
+import DayReport from '../components/DayReport.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { services, cases } from '../data/site';
+
+const flows = [
+  { from: 'Incheckning i bokningssystemet', to: 'Gästen läggs i CRM:et och får rätt nyhetsbrev' },
+  { from: 'Schema i Personalkollen och dagens kassa', to: 'Personalkostnad i procent, varje kväll' },
+  { from: 'Leverantörsfakturor', to: 'Råvarukostnaden per vecka, utan att någon räknar' },
+  { from: 'Ny recension under fyra stjärnor', to: 'Ett meddelande till platschefen samma timme' },
+  { from: 'Konferensförfrågan via webben', to: 'Offertunderlag i säljarens inkorg, ifyllt' },
+];
+const featured = cases.slice(0, 3);
+---
+<Base>
+  <!-- Hero -->
+  <section class="on-dark relative overflow-hidden bg-forest text-white">
+    <div class="wrap grid items-center gap-14 py-16 md:py-24 lg:grid-cols-[1.25fr_1fr]">
+      <div>
+        <p class="font-medium text-sun">Digital infrastruktur för hotell och restauranger</p>
+        <h1 class="mt-5">Mindre administration. Marginalerna i realtid.</h1>
+        <p class="lede mt-6 !text-white/80">
+          Vi kopplar ihop systemen ni redan har, kassa, bokning, schema och bokföring, så att
+          siffrorna flyttar sig själva. Ni ser kvällens lönsamhet samma kväll, inte den 15:e nästa månad.
+        </p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href="/kontakt/" class="btn btn-sun">Boka ett samtal</a>
+          <a href="/tjanster/" class="btn btn-ghost text-white">Se tjänsterna</a>
+        </div>
+      </div>
+      <DayReport />
+    </div>
+  </section>
+
+  <!-- Problem → modul -->
+  <section class="py-20 md:py-28">
+    <div class="wrap">
+      <h2 class="max-w-[22ch]">Tre ställen där marginalen läcker, och vad vi gör åt dem</h2>
+      <div class="mt-12 divide-y divide-line border-y border-line">
+        {services.map((s) => (
+          <a href={s.href} class="group grid gap-6 py-10 md:grid-cols-[1fr_1.25fr] md:gap-14">
+            <p class="text-ink-soft md:text-lg">{s.problem}</p>
+            <div>
+              <h3 class="text-2xl md:text-[1.75rem] group-hover:underline decoration-sun decoration-[3px] underline-offset-[6px]">{s.name}</h3>
+              <p class="mt-2 text-lg">{s.short}</p>
+              <p class="mt-4 font-medium text-forest">{s.price}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Exempel på flöden -->
+  <section class="bg-mist py-20 md:py-28">
+    <div class="wrap grid gap-12 lg:grid-cols-[1fr_1.5fr]">
+      <div>
+        <h2>Det här händer automatiskt efter uppsättningen</h2>
+        <p class="mt-5 text-ink-soft">
+          Några exempel på flöden vi bygger med Make, Zapier och systemens egna API:er. Inget nytt
+          system att lära sig. Personalen jobbar som vanligt, och datan hamnar där den behövs.
+        </p>
+      </div>
+      <ul class="space-y-3">
+        {flows.map((f) => (
+          <li class="grid gap-1 rounded-lg bg-paper px-5 py-4 sm:grid-cols-[1fr_auto_1fr] sm:items-center sm:gap-4">
+            <span class="text-ink-soft">{f.from}</span>
+            <svg class="hidden h-4 w-8 text-forest sm:block" viewBox="0 0 32 16" aria-hidden="true"><path d="M0 8h28m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            <span class="font-medium">{f.to}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Arbetsgång (verklig ordningsföljd) -->
+  <section class="py-20 md:py-28">
+    <div class="wrap">
+      <h2>Så går ett projekt till</h2>
+      <ol class="mt-12 grid gap-10 md:grid-cols-3">
+        <li class="border-t-4 border-sun pt-5">
+          <span class="font-display text-5xl font-bold text-forest">1</span>
+          <h3 class="mt-3">Kartläggning</h3>
+          <p class="mt-2 text-ink-soft">Vi går igenom era system, avtal och rutiner och hittar var timmarna och kronorna försvinner. Ni får en lista med flöden och ett fast pris.</p>
+        </li>
+        <li class="border-t-4 border-sun pt-5">
+          <span class="font-display text-5xl font-bold text-forest">2</span>
+          <h3 class="mt-3">Uppsättning</h3>
+          <p class="mt-2 text-ink-soft">Vi bygger kopplingarna och dashboarden, testar mot riktig data och visar personalen vad som ändrats. Oftast klart på några veckor.</p>
+        </li>
+        <li class="border-t-4 border-sun pt-5">
+          <span class="font-display text-5xl font-bold text-forest">3</span>
+          <h3 class="mt-3">Drift</h3>
+          <p class="mt-2 text-ink-soft">Vi övervakar flödena, rättar när en leverantör ändrar sitt API och bygger vidare när verksamheten växer.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Marknadsföring -->
+  <section class="on-dark bg-forest-deep py-20 text-white md:py-28">
+    <div class="wrap grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-end">
+      <div>
+        <h2>Och när driften sitter: fler bokningar</h2>
+        <p class="mt-5 max-w-[58ch] text-white/80">
+          Marknadsföring har vi gjort sedan starten, med Google Ads, sökoptimering och landningssidor
+          för hotell, konferens och restaurang. Skillnaden nu är att vi kan koppla annonserna till
+          kassan och bokningssystemet, och visa vad en annonskrona faktiskt ger i intäkt.
+        </p>
+      </div>
+      <div class="md:text-right">
+        <a href="/marknadsforing/" class="btn btn-ghost text-white">Om marknadsföringen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case -->
+  <section class="py-20 md:py-28">
+    <div class="wrap">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <h2>Vi jobbar redan med besöksnäringen</h2>
+        <a href="/case/" class="font-medium underline decoration-sun decoration-2 underline-offset-4">Alla case</a>
+      </div>
+      <div class="mt-12 grid gap-x-10 gap-y-12 md:grid-cols-3">
+        {featured.map((c) => (
+          <article>
+            <p class="text-sm text-ink-soft">{c.sector}</p>
+            <h3 class="mt-1">{c.name}</h3>
+            <p class="mt-3">{c.summary}</p>
+            <p class="mt-3 text-sm text-forest">{c.work.join(', ')}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

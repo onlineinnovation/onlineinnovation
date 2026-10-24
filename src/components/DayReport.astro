@@ -1,0 +1,67 @@
+---
+// Heroelementet: en dagrapport som "skrivs ut" som ett kvitto när sidan laddas.
+// Siffrorna är exempel och märks som det i gränssnittet.
+const rows = [
+  { label: 'Försäljning', value: '148 600 kr', note: '+9 % mot förra lördagen', tone: 'gain' },
+  { label: 'Personalkostnad', value: '31,2 %', note: 'Mål 30 %', tone: 'loss' },
+  { label: 'Råvarukostnad', value: '28,4 %', note: 'Inom mål', tone: 'neutral' },
+  { label: 'Snittnota', value: '412 kr', note: '+6 %', tone: 'gain' },
+  { label: 'Beläggning', value: '87 %', note: '61 av 70 rum', tone: 'neutral' },
+  { label: 'RevPAR', value: '1 284 kr', note: '+4 %', tone: 'gain' },
+];
+---
+<figure class="report relative mx-auto w-full max-w-[22rem]" aria-label="Exempel på en dagrapport i The Operator's Dashboard">
+  <div class="paper relative bg-white px-6 pb-8 pt-6 font-mono text-[0.84rem] text-ink shadow-[0_24px_60px_-20px_rgba(10,30,24,0.55)]">
+    <div class="flex items-baseline justify-between border-b border-dashed border-ink/30 pb-3">
+      <span class="font-medium">DAGRAPPORT</span>
+      <span class="text-ink-soft">lör 24 okt</span>
+    </div>
+    <p class="mt-2 text-ink-soft">Hotell &amp; restaurang, exempel</p>
+
+    <dl class="mt-4 space-y-3">
+      {rows.map((r, i) => (
+        <div class="row" style={`--i:${i}`}>
+          <div class="flex items-baseline justify-between gap-3">
+            <dt>{r.label}</dt>
+            <dd class="font-medium tabular-nums">{r.value}</dd>
+          </div>
+          <div class:list={[
+            'text-right text-[0.76rem]',
+            r.tone === 'gain' && 'text-gain',
+            r.tone === 'loss' && 'text-loss',
+            r.tone === 'neutral' && 'text-ink-soft',
+          ]}>{r.note}</div>
+        </div>
+      ))}
+    </dl>
+
+    <div class="row mt-5 border-t border-dashed border-ink/30 pt-3 text-[0.76rem] text-ink-soft" style="--i:6">
+      Uppdaterad 23:47 från kassa, schema och bokningssystem
+    </div>
+  </div>
+  <figcaption class="mt-4 text-center text-sm text-white/70">Så här ser ägaren kvällen, innan den är slut.</figcaption>
+</figure>
+
+<style>
+  .paper {
+    /* Avriven kvittokant nedtill */
+    -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - 8px) no-repeat,
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 16px 8px repeat-x;
+    mask: linear-gradient(#000 0 0) top / 100% calc(100% - 8px) no-repeat,
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 16px 8px repeat-x;
+    animation: feed 1.1s cubic-bezier(.2,.7,.2,1) both;
+    transform-origin: top;
+  }
+  .row {
+    animation: print 0.35s ease-out both;
+    animation-delay: calc(0.55s + var(--i) * 0.16s);
+  }
+  @keyframes feed {
+    from { clip-path: inset(0 0 100% 0); transform: translateY(-12px); }
+    to { clip-path: inset(0 0 0 0); transform: none; }
+  }
+  @keyframes print {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>

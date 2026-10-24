@@ -1,0 +1,39 @@
+---
+import Logo from './Logo.astro';
+import { nav } from '../data/site';
+const path = Astro.url.pathname;
+---
+<header class="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur">
+  <div class="wrap flex h-16 items-center justify-between gap-6">
+    <a href="/" aria-label="Online Innovation, till startsidan"><Logo /></a>
+
+    <nav aria-label="Huvudmeny" class="hidden md:block">
+      <ul class="flex items-center gap-7 text-[0.98rem] font-medium">
+        {nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={path.startsWith(item.href) ? 'page' : undefined}
+              class="py-2 hover:text-forest aria-[current=page]:underline aria-[current=page]:decoration-sun aria-[current=page]:decoration-[3px] aria-[current=page]:underline-offset-8"
+            >{item.label}</a>
+          </li>
+        ))}
+        <li><a href="/kontakt/" class="btn btn-sun !py-2 !px-5">Boka ett samtal</a></li>
+      </ul>
+    </nav>
+
+    <details class="md:hidden group relative">
+      <summary class="list-none cursor-pointer rounded-full border border-ink px-4 py-1.5 font-medium [&::-webkit-details-marker]:hidden">
+        <span class="group-open:hidden">Meny</span><span class="hidden group-open:inline">Stäng</span>
+      </summary>
+      <nav aria-label="Mobilmeny" class="fixed inset-x-0 top-16 border-b border-line bg-paper px-4 pb-6 pt-2 shadow-lg">
+        <ul class="flex flex-col text-lg font-medium">
+          {nav.map((item) => (
+            <li><a href={item.href} class="block border-b border-line py-3">{item.label}</a></li>
+          ))}
+          <li class="pt-4"><a href="/kontakt/" class="btn btn-sun w-full">Boka ett samtal</a></li>
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>

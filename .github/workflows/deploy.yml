@@ -1,0 +1,38 @@
+# Bygger sajten vid varje push till main och lägger de färdiga filerna
+# i grenen "deploy". Plesk hämtar "deploy" automatiskt via webhook.
+name: Bygg och publicera
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Publicera till deploy-grenen
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: deploy
+          publish_dir: ./dist
+          force_orphan: true
+          commit_message: "Bygge från ${{ github.sha }}"

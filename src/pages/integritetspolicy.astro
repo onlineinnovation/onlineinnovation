@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+<Base title="Integritetspolicy" description="Hur Online Innovation hanterar personuppgifter.">
+  <section class="py-16 md:py-24">
+    <div class="wrap prose-oi max-w-3xl">
+      <h1 class="mb-8 !text-[2.6rem]">Integritetspolicy</h1>
+      <p>Den här policyn beskriver hur Online Innovation hanterar personuppgifter som du lämnar via webbplatsen.</p>
+      <h2>Vilka uppgifter vi samlar in</h2>
+      <p>När du skickar en förfrågan via kontaktformuläret sparar vi namn, företag, e-post, telefonnummer om du anger det och ditt meddelande.</p>
+      <h2>Varför</h2>
+      <p>Uppgifterna används för att svara på din förfrågan och, om vi inleder ett samarbete, för att administrera uppdraget. Den rättsliga grunden är vårt berättigade intresse av att besvara förfrågningar.</p>
+      <h2>Hur länge</h2>
+      <p>Förfrågningar som inte leder till ett uppdrag raderas senast tolv månader efter senaste kontakt.</p>
+      <h2>Kakor</h2>
+      <p>Webbplatsen använder inga kakor för spårning eller annonsering.</p>
+      <h2>Dina rättigheter</h2>
+      <p>Du kan begära att få ut, rätta eller radera dina uppgifter genom att mejla <a href={`mailto:${site.email}`}>{site.email}</a>. Du kan också lämna klagomål till Integritetsskyddsmyndigheten (IMY).</p>
+    </div>
+  </section>
+</Base>

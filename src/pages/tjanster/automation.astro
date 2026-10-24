@@ -1,0 +1,28 @@
+---
+import ServicePage from '../../layouts/ServicePage.astro';
+---
+<ServicePage
+  slug="automation"
+  headline="Systemen pratar med varandra. Ingen flyttar siffror för hand."
+  intro="Hotell och restauranger har ofta fem till tio system som inte är kopplade till varandra. Vi bygger kopplingarna mellan dem, så att data går dit den ska utan att någon behöver kopiera den."
+  includes={[
+    'Kartläggning av era system, rutiner och var det manuella arbetet sitter',
+    'Kopplingar via Make, Zapier eller systemens egna API:er',
+    'Test mot riktig data innan något går live',
+    'Dokumentation av varje flöde, så att ni vet vad som händer och var',
+    'Genomgång med personalen som berörs',
+    'Felbevakning, så att vi får larm om ett flöde stannar',
+  ]}
+  examples={[
+    { title: 'Gästdata till CRM', text: 'Vid incheckning skickas gästens uppgifter och samtycke automatiskt till ert CRM eller nyhetsbrevsverktyg, sorterade efter typ av vistelse.' },
+    { title: 'Kassa till bokföring', text: 'Dagens försäljning från kassasystemet bokförs automatiskt i ekonomisystemet, uppdelad per konto och momssats.' },
+    { title: 'Konferensförfrågningar', text: 'Förfrågan från webben blir ett offertunderlag med datum, antal och önskemål ifyllda, direkt i säljarens inkorg.' },
+    { title: 'Recensioner och uppföljning', text: 'Gäster får en förfrågan om recension dagen efter utcheckning. Betyg under fyra stjärnor går som larm till platschefen.' },
+  ]}
+  fitsFor="Hotell, restauranger och konferensanläggningar som har flera system och någon som lägger timmar varje vecka på att flytta data mellan dem."
+  faq={[
+    { q: 'Behöver vi byta system?', a: 'Nej. Vi bygger på det ni redan har. Ibland hittar vi ett system som kostar mer än det ger, och då säger vi det, men bytet är ert beslut.' },
+    { q: 'Vad händer om ett system uppdateras?', a: 'Flödena övervakas. Om en leverantör ändrar något som påverkar en koppling får vi ett larm och rättar det.' },
+    { q: 'Hur hanteras gästdata och GDPR?', a: 'Vi flyttar bara den data som behövs, till system som har personuppgiftsbiträdesavtal, och dokumenterar varje flöde. Samtycken följer med gästen.' },
+  ]}
+/>

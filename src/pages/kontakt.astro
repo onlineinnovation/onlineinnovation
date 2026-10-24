@@ -1,0 +1,83 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+<Base title="Kontakt" description="Boka ett samtal med Online Innovation om automation, dashboards och marknadsföring för hotell och restauranger.">
+  <section class="on-dark bg-forest text-white">
+    <div class="wrap py-16 md:py-20">
+      <h1 class="max-w-[16ch]">Boka ett samtal</h1>
+      <p class="lede mt-6 !text-white/80">
+        Berätta kort om verksamheten och vilka system ni använder. Vi hör av oss inom en arbetsdag
+        och föreslår en tid.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24">
+    <div class="wrap grid gap-14 lg:grid-cols-[1.5fr_1fr]">
+      <div>
+        <div id="form-status" role="status" class="mb-6 hidden rounded-lg px-5 py-4 font-medium"></div>
+
+        <form action="/kontakt.php" method="post" class="grid gap-5 sm:grid-cols-2">
+          <label class="grid gap-1.5">
+            <span class="font-medium">Namn</span>
+            <input name="namn" required autocomplete="name" class="rounded-lg border border-line bg-white px-4 py-3 focus:border-forest" />
+          </label>
+          <label class="grid gap-1.5">
+            <span class="font-medium">Företag</span>
+            <input name="foretag" autocomplete="organization" class="rounded-lg border border-line bg-white px-4 py-3 focus:border-forest" />
+          </label>
+          <label class="grid gap-1.5">
+            <span class="font-medium">E-post</span>
+            <input name="epost" type="email" required autocomplete="email" class="rounded-lg border border-line bg-white px-4 py-3 focus:border-forest" />
+          </label>
+          <label class="grid gap-1.5">
+            <span class="font-medium">Telefon <span class="font-normal text-ink-soft">(valfritt)</span></span>
+            <input name="telefon" type="tel" autocomplete="tel" class="rounded-lg border border-line bg-white px-4 py-3 focus:border-forest" />
+          </label>
+          <label class="grid gap-1.5 sm:col-span-2">
+            <span class="font-medium">Vad gäller det?</span>
+            <select name="amne" class="rounded-lg border border-line bg-white px-4 py-3 focus:border-forest">
+              <option>Automation av administration</option>
+              <option>Dashboard och nyckeltal</option>
+              <option>Extern teknikchef</option>
+              <option>Marknadsföring</option>
+              <option>Något annat</option>
+            </select>
+          </label>
+          <label class="grid gap-1.5 sm:col-span-2">
+            <span class="font-medium">Meddelande</span>
+            <textarea name="meddelande" rows="6" required placeholder="T.ex. vilka system ni har idag och vad som tar mest tid." class="rounded-lg border border-line bg-white px-4 py-3 focus:border-forest"></textarea>
+          </label>
+          <!-- Fälla för spambottar, ska lämnas tom -->
+          <label class="hidden" aria-hidden="true">Webbplats <input name="webbplats" tabindex="-1" autocomplete="off" /></label>
+          <div class="sm:col-span-2">
+            <button type="submit" class="btn btn-sun">Skicka förfrågan</button>
+            <p class="mt-3 text-sm text-ink-soft">Vi använder uppgifterna bara för att svara dig. Läs mer i vår <a class="underline" href="/integritetspolicy/">integritetspolicy</a>.</p>
+          </div>
+        </form>
+      </div>
+
+      <aside class="self-start rounded-xl bg-mist p-7">
+        <h2 class="text-2xl">Hellre mejl?</h2>
+        <p class="mt-3"><a class="font-medium underline decoration-sun decoration-2 underline-offset-4" href={`mailto:${site.email}`}>{site.email}</a></p>
+        <p class="mt-2 text-ink-soft">{site.hours}</p>
+      </aside>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      var p = new URLSearchParams(location.search);
+      var box = document.getElementById('form-status');
+      if (!box) return;
+      if (p.get('skickat') === 'ja') {
+        box.textContent = 'Tack! Förfrågan är skickad. Vi hör av oss inom en arbetsdag.';
+        box.className = 'mb-6 rounded-lg px-5 py-4 font-medium bg-[#e3f1ea] text-[#1f5c43]';
+      } else if (p.get('fel')) {
+        box.textContent = 'Förfrågan kunde inte skickas. Kontrollera att namn, e-post och meddelande är ifyllda, eller mejla oss direkt.';
+        box.className = 'mb-6 rounded-lg px-5 py-4 font-medium bg-[#f8e3dd] text-[#8a2f1d]';
+      }
+    })();
+  </script>
+</Base>
